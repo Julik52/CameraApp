@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity() {
             type = "message/rfc822"
             putExtra(Intent.EXTRA_EMAIL, arrayOf(EMAIL_ADDRESS))
             putExtra(Intent.EXTRA_SUBJECT, "DigiJED Parshikova Yuliia")
-            putExtra(Intent.EXTRA_TEXT, "Додаю селфі для проекту DigiJED.\nРепозиторій GitHub: [https://github.com/Julik52/CameraApp")
+            putExtra(Intent.EXTRA_TEXT, "Додаю селфі для проекту DigiJED.\nРепозиторій GitHub: https://github.com/Julik52/CameraApp")
             imageUri?.let { putExtra(Intent.EXTRA_STREAM, it) }
         }
         if (emailIntent.resolveActivity(packageManager) != null) {
