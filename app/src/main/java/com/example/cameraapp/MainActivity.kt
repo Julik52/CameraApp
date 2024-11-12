@@ -42,7 +42,6 @@ class MainActivity : AppCompatActivity() {
         takeSelfieButton = findViewById(R.id.takeSelfieButton)
         sendSelfieButton = findViewById(R.id.sendSelfieButton)
 
-        // Кнопка зробити селфі
         takeSelfieButton.setOnClickListener {
             if (checkCameraPermission()) {
                 openCamera()
@@ -51,13 +50,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Кнопка надіслати селфі
         sendSelfieButton.setOnClickListener {
             sendEmailWithSelfie()
         }
     }
 
-    // Перевірка дозволу на камеру
     private fun checkCameraPermission(): Boolean {
         return ContextCompat.checkSelfPermission(
             this,
@@ -65,7 +62,6 @@ class MainActivity : AppCompatActivity() {
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    // Запит дозволу на камеру
     private fun requestCameraPermission() {
         ActivityCompat.requestPermissions(
             this,
@@ -74,7 +70,6 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    // Відкриття камери
     private fun openCamera() {
         val photoFile: File = createImageFile()
         imageUri = FileProvider.getUriForFile(this, "${packageName}.provider", photoFile)
@@ -84,14 +79,13 @@ class MainActivity : AppCompatActivity() {
         startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE)
     }
 
-    // Створення файлу для збереження зображення
     private fun createImageFile(): File {
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         val storageDir: File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile("SELFIE_${timeStamp}_", ".jpg", storageDir)
     }
 
-    // Обробка результату роботи камери
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CAMERA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
@@ -99,12 +93,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // Надсилання селфі електронною поштою
     private fun sendEmailWithSelfie() {
         val emailIntent = Intent(Intent.ACTION_SEND).apply {
             type = "message/rfc822"
             putExtra(Intent.EXTRA_EMAIL, arrayOf(EMAIL_ADDRESS))
-            putExtra(Intent.EXTRA_SUBJECT, "DigiJED [Ваше прізвище та ім'я]")
+            putExtra(Intent.EXTRA_SUBJECT, "DigiJED Parshikova Yuliia")
             putExtra(Intent.EXTRA_TEXT, "Додаю селфі для проекту DigiJED.\nРепозиторій GitHub: [https://github.com/Julik52/CameraApp")
             imageUri?.let { putExtra(Intent.EXTRA_STREAM, it) }
         }
@@ -115,7 +108,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // Обробка результату запиту дозволу
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == CAMERA_PERMISSION_CODE && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {

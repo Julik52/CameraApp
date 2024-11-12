@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Дозвіл для роботи з камерою та записом у зовнішнє сховище -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -17,7 +16,6 @@
         android:theme="@style/Theme.CameraApp"
         tools:targetApi="31">
 
-        <!-- Основна Activity додатку -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -27,7 +25,6 @@
             </intent-filter>
         </activity>
 
-        <!-- FileProvider для доступу до файлів між додатками -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
